@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northstar RAG Evaluation Lab</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">AI EVALUATION · DAY 14</p>
+      <h1>Northstar RAG Lab</h1>
+      <p class="subtitle">Inspect the benchmark, replay evidence, and test the assistant live.</p>
+    </div>
+    <div class="status"><span></span><strong id="agent-status">Loading artifacts…</strong></div>
+  </header>
+
+  <main>
+    <section id="metrics" class="metric-grid" aria-label="Benchmark metrics"></section>
+
+    <nav class="tabs" aria-label="Demo views">
+      <button class="tab active" data-view="benchmark">Benchmark</button>
+      <button class="tab" data-view="live">Live assistant</button>
+      <button class="tab" data-view="rerank">Reranking bonus</button>
+    </nav>
+
+    <section id="benchmark" class="view active">
+      <div class="panel controls">
+        <label>Difficulty
+          <select id="difficulty-filter">
+            <option value="all">All cases</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="adversarial">Adversarial</option>
+          </select>
+        </label>
+        <label>Status
+          <select id="status-filter">
+            <option value="all">Pass and fail</option>
+            <option value="passed">Passed</option>
+            <option value="failed">Failed</option>
+          </select>
+        </label>
+      </div>
+      <div class="benchmark-layout">
+        <div class="panel table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Question</th><th>Overall</th><th>Status</th></tr></thead>
+            <tbody id="case-table"></tbody>
+          </table>
+        </div>
+        <article id="case-detail" class="panel detail empty">Select a case to inspect its trace.</article>
+      </div>
+    </section>
+
+    <section id="live" class="view">
+      <div class="panel live-panel">
+        <div>
+          <p class="eyebrow">LIVE OPENAI REQUEST</p>
+          <h2>Ask Student Services</h2>
+          <p class="muted">The API key remains server-side. The answer uses only retrieved corpus chunks.</p>
+        </div>
+        <form id="ask-form">
+          <textarea id="question" maxlength="2000" rows="4" required>What approvals and fee are required for a late add?</textarea>
+          <button class="primary" type="submit">Run RAG</button>
+        </form>
+        <div id="ask-result" class="result empty">Submit a question to begin.</div>
+      </div>
+    </section>
+
+    <section id="rerank" class="view">
+      <div class="panel rerank-panel">
+        <div>
+          <p class="eyebrow">EXERCISE 3.5 · BONUS</p>
+          <h2>Lexical reranking lab</h2>
+          <p class="muted">The chunk set stays fixed. Only rank changes, so Recall should remain constant.</p>
+        </div>
+        <div class="inline-controls">
+          <select id="rerank-case"></select>
+          <button id="rerank-button" class="primary">Compare ranking</button>
+        </div>
+        <div id="rerank-result" class="result empty">Choose a recorded trace.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Northstar University is fictional · Local evaluation demo</footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,18 +1,19 @@
 {
   "schema_version": "1.0",
   "corpus_id": "northstar-student-services-v1",
-  "generated_at": "2026-08-12T03:00:39.743458+00:00",
+  "generated_at": "2026-08-12T03:33:35.211558+00:00",
   "agent": {
     "name": "domain-assistant",
     "model": "gpt-4o-mini",
     "top_k": 5,
-    "prompt_version": "1.0"
+    "prompt_version": "2.0-en",
+    "response_language": "en"
   },
   "answers": [
     {
       "id": "E01",
       "question": "What is the last day to withdraw from a Fall 2026 course with a W grade?",
-      "actual_answer": "The last day to withdraw from a Fall 2026 course with a `W` grade is October 30.",
+      "actual_answer": "The last day to withdraw from a Fall 2026 course with a W grade is October 30.",
       "retrieved_contexts": [
         {
           "source_doc": "01_academic_calendar.md",
@@ -240,7 +241,7 @@
     {
       "id": "M02",
       "question": "A Fall 2026 student drops one course on September 1. What tuition reversal applies, and why?",
-      "actual_answer": "A Fall 2026 student dropping one course on September 1 will have the course recorded as a withdrawal since it occurs after the census date of September 4. Therefore, the tuition reversal will not apply, as the drop is recorded after the census date, and the course will receive a `W` grade. The tuition and fees for the course will not be refunded.",
+      "actual_answer": "A Fall 2026 student dropping one course on September 1 will have the course recorded as a withdrawal since it occurs after the census date of September 4. Therefore, the tuition reversal will not apply, as the drop is not within the timeframe for a full refund. The course will receive a `W` grade, and any tuition refund policies applicable to drops before the census date do not apply in this case.",
       "retrieved_contexts": [
         {
           "source_doc": "01_academic_calendar.md",
@@ -278,7 +279,7 @@
     {
       "id": "M03",
       "question": "A Merit Scholarship recipient drops below 12 graded credits on September 1, 2026. What reviews or financial effects can follow?",
-      "actual_answer": "If a Merit Scholarship recipient drops below 12 graded credits on September 1, 2026, the following reviews or financial effects can occur:\n\n1. **Eligibility Review**: An immediate eligibility review will be triggered since the drop is before the census date (September 4, 2026).\n\n2. **Scholarship Status**: The recipient may lose their scholarship eligibility if they do not meet the requirement of completing at least 12 graded credits in the reviewed term.\n\n3. **Financial Consequences**: Dropping below the required credits may also affect tuition billing and potential refunds, as changes in enrollment status can alter the billed credits.\n\n4. **End-of-Term Review**: If the student withdraws after the census date, it will count as attempted credits but not completed credits, potentially leading to failure in the end-of-term review. \n\n5. **Impact on GPA**: If the student is enrolled in pass/fail courses, those will only count toward the credit load if a pass is earned, but they do not contribute to the GPA.\n\nOverall, dropping below the required credits can have significant implications for both scholarship eligibility and financial status.",
+      "actual_answer": "If a Merit Scholarship recipient drops below 12 graded credits on September 1, 2026, the following reviews or financial effects can occur:\n\n1. **Eligibility Review**: An immediate eligibility review will be triggered since the drop occurs before the census date (September 4, 2026).\n\n2. **Scholarship Status**: The recipient may lose their scholarship eligibility if they do not meet the requirement of completing at least 12 graded credits in the reviewed term.\n\n3. **Financial Consequences**: Dropping below the required credits may also affect tuition billing and potential refunds, as changes in enrollment status can alter the billed credits.\n\n4. **End-of-Term Review**: If the student withdraws after the census date, it will count as attempted credits but not completed credits, potentially leading to failure in the end-of-term review. \n\n5. **GPA Requirements**: To renew the scholarship, the recipient must still meet the GPA requirements, which may be impacted by dropping courses. \n\nOverall, dropping below 12 graded credits can have significant implications for both scholarship eligibility and financial status.",
       "retrieved_contexts": [
         {
           "source_doc": "04_scholarships.md",
@@ -506,7 +507,7 @@
     {
       "id": "H02",
       "question": "After a final grade is published, what steps, deadlines, and grounds govern a grade appeal through the final internal review?",
-      "actual_answer": "After a final grade is published, the steps and deadlines for a grade appeal are as follows:\n\n1. **Request Clarification**: The student must request clarification from the instructor within **five business days** after the final grade is published.\n\n2. **Formal Grade Appeal**: A formal grade appeal must be filed within **ten business days** after the publication of the final grade. The appeal must identify at least one permitted ground:\n   - Calculation error\n   - Material departure from the published syllabus\n   - Procedural unfairness\n   - Prohibited discrimination\n   (Disagreement with academic judgment alone is not a permitted ground.)\n\n3. **Department Chair Review**: The department chair reviews the grade appeal first.\n\n4. **Appeal to Academic Review Panel**: If the student wishes to appeal the chair's outcome, they may do so within **five business days** only if there is new material evidence or a documented procedural error in the first review. The decision of the Academic Review Panel is final within the university process.",
+      "actual_answer": "After a final grade is published, the steps and deadlines for a grade appeal are as follows:\n\n1. **Request Clarification**: The student must request clarification from the instructor within **five business days** after the final grade is published.\n\n2. **Formal Grade Appeal**: A formal grade appeal must be filed within **ten business days** after the publication of the final grade. The appeal must identify at least one permitted ground:\n   - Calculation error\n   - Material departure from the published syllabus\n   - Procedural unfairness\n   - Prohibited discrimination\n   (Disagreement with academic judgment alone is not a permitted ground.)\n\n3. **Review by Department Chair**: The department chair reviews the grade appeal first.\n\n4. **Appeal to Academic Review Panel**: If the student wishes to appeal the chair's outcome, they may do so within **five business days** only if there is new material evidence or a documented procedural error in the first review. The decision of the Academic Review Panel is final within the university process.",
       "retrieved_contexts": [
         {
           "source_doc": "08_student_support_and_appeals.md",
@@ -544,7 +545,7 @@
     {
       "id": "H03",
       "question": "An international Merit Scholarship student plans to withdraw from every course after census. What consequences and required consultation should they consider?",
-      "actual_answer": "Withdrawing from every course after the census date is considered a term withdrawal and can have several consequences for an international Merit Scholarship student:\n\n1. **Tuition Consequences**: No tuition will be reversed after the census date for ordinary course withdrawals. \n\n2. **Scholarship Impact**: The Northstar Merit Scholarship may be paused or lost due to the withdrawal. \n\n3. **Immigration Status**: International students must consult the International Student Office before reducing their registered load, as this may affect their immigration status.\n\n4. **Housing and Insurance**: Withdrawal may also impact housing and insurance arrangements.\n\nIt is essential for the student to consult the relevant offices to understand all implications fully.",
+      "actual_answer": "An international Merit Scholarship student planning to withdraw from every course after the census date should consider the following consequences and required consultations:\n\n1. **Consequences**:\n   - **Tuition**: No tuition will be reversed after the census date for an ordinary course withdrawal.\n   - **Scholarship**: The Northstar Merit Scholarship may be paused or lost due to the withdrawal.\n   - **Immigration Status**: Withdrawing may affect the student's immigration status.\n   - **Housing and Insurance**: There may be implications for housing and insurance coverage.\n\n2. **Required Consultation**:\n   - The student must consult the International Student Office before reducing their registered load to understand the impact on their immigration status and other related issues.",
       "retrieved_contexts": [
         {
           "source_doc": "06_leave_and_withdrawal.md",
@@ -620,7 +621,7 @@
     {
       "id": "H05",
       "question": "A student requests retroactive medical leave 40 calendar days after their last documented participation. What must they prove, and how should medical documentation be handled?",
-      "actual_answer": "To request retroactive medical leave 40 calendar days after the last documented participation, the student must prove that their medical condition prevented them from filing the request within the required 30-day period. Medical documentation must describe the functional impact of the condition and relevant dates. Additionally, this documentation should not be emailed to individual instructors but submitted through the appropriate channels.",
+      "actual_answer": "To request retroactive medical leave 40 calendar days after the last documented participation, the student must prove that their medical condition prevented them from filing the request within the required 30-day period. Medical documentation must describe the functional impact of the condition and relevant dates. Additionally, this documentation should not be emailed to individual instructors but should be submitted through the appropriate channels.",
       "retrieved_contexts": [
         {
           "source_doc": "06_leave_and_withdrawal.md",
@@ -728,7 +729,7 @@
     {
       "id": "A03",
       "question": "My parent pays my tuition, so Northstar must give them my grades and conduct record automatically, correct?",
-      "actual_answer": "No, Northstar does not automatically provide academic or conduct information to parents or sponsors who pay tuition. The university may only discuss a student's record with the student or a person who has valid, recorded authorization.",
+      "actual_answer": "No, Northstar does not automatically provide grades and conduct records to parents or sponsors who pay tuition. The university may only discuss a student's record with the student or a person who has valid, recorded authorization.",
       "retrieved_contexts": [
         {
           "source_doc": "09_privacy_security_and_policy_updates.md",

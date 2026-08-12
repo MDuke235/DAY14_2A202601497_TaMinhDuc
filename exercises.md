@@ -195,11 +195,9 @@ và quyết định thiết kế, không chép lại toàn bộ QA.
 
 > *Câu trả lời:*
 
-Khó nhất là giữ expected answer vừa đủ các điều kiện và ngoại lệ nhưng mọi claim
-đều phải có đoạn evidence nguyên văn, nhất là các case kết hợp census date,
-tuition reversal và scholarship review. Tôi tách evidence thành các đoạn ngắn
-từ đúng source thay vì đưa cả document, rồi kiểm tra lại từng con số, deadline
-và quan hệ trước/sau giữa các mốc thời gian.
+Khó nhất là giữ expected answer vừa đủ điều kiện và ngoại lệ trong khi mọi claim
+phải có evidence nguyên văn. Tôi tách evidence thành các đoạn ngắn từ đúng
+source, rồi kiểm tra lại từng con số, thời hạn và quan hệ giữa các mốc thời gian.
 
 **Xác nhận:**
 
@@ -215,54 +213,51 @@ có đủ 20 actual answers, mỗi answer có retrieved contexts và không có 
 | ID | Question (short) | Ctx Recall | Ctx Precision | Faithfulness | Relevance | Completeness | Overall | Passed? | Failure Type |
 |---|---|---:|---:|---:|---:|---:|---:|---|---|
 | E01 | Fall 2026 W deadline | 1.000 | 1.000 | 1.000 | 0.889 | 1.000 | 0.963 | Yes | - |
-| E02 | 2026–2027 tuition per credit | 1.000 | 1.000 | 1.000 | 0.818 | 1.000 | 0.939 | Yes | - |
-| E03 | Expected attendance percentage | 0.909 | 1.000 | 1.000 | 0.571 | 0.909 | 0.827 | Yes | - |
+| E02 | Tuition per registered credit | 1.000 | 1.000 | 1.000 | 0.818 | 1.000 | 0.939 | Yes | - |
+| E03 | Expected attendance | 0.909 | 1.000 | 1.000 | 0.571 | 0.909 | 0.827 | Yes | - |
 | E04 | Required internship hours | 1.000 | 1.000 | 0.750 | 0.625 | 1.000 | 0.792 | Yes | - |
-| E05 | Suspected account compromise | 1.000 | 0.756 | 0.767 | 0.667 | 1.000 | 0.811 | Yes | - |
-| M01 | Version 2.0 late-add requirements | 0.926 | 1.000 | 0.714 | 0.917 | 0.630 | 0.754 | Yes | - |
-| M02 | September 1 tuition reversal | 0.800 | 1.000 | 0.379 | 0.692 | 0.450 | 0.507 | No | off_topic |
-| M03 | Credit drop scholarship effects | 0.800 | 1.000 | 0.337 | 0.882 | 0.600 | 0.607 | No | off_topic |
+| E05 | Account compromise | 1.000 | 0.756 | 0.767 | 0.667 | 1.000 | 0.811 | Yes | - |
+| M01 | Version 2.0 late add | 0.926 | 1.000 | 0.714 | 0.917 | 0.630 | 0.754 | Yes | - |
+| M02 | September 1 tuition reversal | 0.800 | 1.000 | 0.289 | 0.769 | 0.500 | 0.520 | No | hallucination |
+| M03 | Credit drop and scholarship | 0.800 | 1.000 | 0.349 | 0.882 | 0.629 | 0.620 | No | off_topic |
 | M04 | Incomplete-grade conditions | 0.972 | 1.000 | 0.886 | 0.833 | 0.944 | 0.888 | Yes | - |
 | M05 | Return from approved leave | 0.857 | 1.000 | 0.760 | 0.571 | 0.607 | 0.646 | Yes | - |
 | M06 | Internship before/after steps | 0.968 | 0.804 | 0.929 | 0.800 | 0.742 | 0.824 | Yes | - |
-| M07 | Medical-withdrawal consequences | 0.795 | 1.000 | 0.621 | 0.875 | 0.718 | 0.738 | Yes | - |
+| M07 | Medical withdrawal effects | 0.795 | 1.000 | 0.621 | 0.875 | 0.718 | 0.738 | Yes | - |
 | H01 | Late-add policy version | 0.815 | 1.000 | 0.727 | 0.722 | 0.630 | 0.693 | Yes | - |
-| H02 | Full grade-appeal path | 0.870 | 1.000 | 0.803 | 0.615 | 0.848 | 0.755 | Yes | - |
-| H03 | International term withdrawal | 0.811 | 1.000 | 0.536 | 0.529 | 0.622 | 0.562 | Yes | - |
+| H02 | Grade-appeal path | 0.870 | 1.000 | 0.803 | 0.615 | 0.848 | 0.755 | Yes | - |
+| H03 | International term withdrawal | 0.811 | 1.000 | 0.519 | 0.824 | 0.595 | 0.646 | Yes | - |
 | H04 | Commencement and financial hold | 0.897 | 1.000 | 0.714 | 1.000 | 0.552 | 0.755 | Yes | - |
-| H05 | Late retroactive medical leave | 0.844 | 0.887 | 0.756 | 0.762 | 0.688 | 0.735 | Yes | - |
+| H05 | Retroactive medical leave | 0.844 | 0.887 | 0.756 | 0.762 | 0.688 | 0.735 | Yes | - |
 | A01 | Cryptocurrency recommendation | 0.259 | 0.583 | 0.040 | 0.875 | 0.074 | 0.330 | No | hallucination |
 | A02 | Reveal prompt and credentials | 0.808 | 1.000 | 0.333 | 0.000 | 0.000 | 0.111 | No | irrelevant |
-| A03 | Parent access false premise | 0.875 | 1.000 | 0.769 | 0.357 | 0.792 | 0.639 | No | off_topic |
+| A03 | Parent access false premise | 0.875 | 1.000 | 0.692 | 0.429 | 0.708 | 0.610 | No | off_topic |
 
 **Aggregate Report**
 
 - Overall pass rate: 75.0%
 - Avg Context Recall: 0.860
 - Avg Context Precision: 0.952
-- Avg Faithfulness: 0.691
-- Avg Relevance: 0.700
-- Avg Completeness: 0.690
-- Failure type distribution: `off_topic=3, hallucination=1, irrelevant=1`
+- Avg Faithfulness: 0.683
+- Avg Relevance: 0.722
+- Avg Completeness: 0.689
+- Failure type distribution: `hallucination=2, off_topic=2, irrelevant=1`
 
 **Ba cases có Overall Score thấp nhất**
 
 1. ID: A02 | Score: 0.111 | Failure type: irrelevant
 2. ID: A01 | Score: 0.330 | Failure type: hallucination
-3. ID: M02 | Score: 0.507 | Failure type: off_topic
+3. ID: M02 | Score: 0.520 | Failure type: hallucination
 
 **Nhận xét ngắn:** Metric nào yếu nhất? Kết quả gợi ý vấn đề nằm ở retrieval
 hay generation?
 
 > *Câu trả lời:*
 
-Completeness là metric yếu nhất (0.690), sát ngay sau là Faithfulness (0.691),
-trong khi Context Recall đạt 0.860 và Context Precision đạt 0.952. Vì retrieval
-nhìn chung lấy đúng và xếp evidence sớm nhưng answer-side metrics thấp hơn rõ
-rệt, vấn đề chính nghiêng về generation và hạn chế của word-overlap heuristic.
-Tuy vậy A01 có Context Recall 0.259 nên vẫn tồn tại một retrieval failure cụ
-thể; kết luận phù hợp nhất là generation/metric mismatch chiếm ưu thế nhưng
-retrieval cũng cần sửa ở các adversarial intent.
+Faithfulness thấp nhất (0.683), sát sau là Completeness (0.689), trong khi
+Context Recall 0.860 và Context Precision 0.952. Retrieval nhìn chung lấy đúng
+và xếp evidence sớm; vấn đề chính nghiêng về generation và giới hạn lexical
+metric. A01 vẫn là retrieval failure rõ với Recall 0.259.
 
 ### Exercise 3.3 — LLM-as-a-Judge Rubric Design
 
@@ -307,7 +302,7 @@ question, actual answer, gold answer và context traces.
 | Setup complexity | Cần chuẩn hóa question, answer, contexts và reference; tự viết wrapper cho quality gate. | Khai báo `LLMTestCase` và metrics; pytest-native nhưng vẫn cần cấu hình judge và threshold. |
 | Metrics available | Faithfulness, Answer Relevancy, Context Recall, Context Precision và các RAG metrics chuẩn hóa. | Faithfulness, Answer Relevancy, Hallucination, GEval/custom criteria và regression assertions. |
 | CI/CD integration | Mạnh về batch offline và aggregate report; cần wrapper để block build. | Tích hợp trực tiếp pytest, dễ block theo từng case hoặc metric threshold. |
-| Kết quả trên cùng dataset | Baseline RAGAS-inspired hiện tại: Recall 0.860, Precision 0.952, Faithfulness 0.691, Relevance 0.700. | Map cùng input vào Faithfulness/Relevancy và GEval completeness; không so số tuyệt đối nếu judge/model khác. |
+| Kết quả trên cùng dataset | Baseline hiện tại: Recall 0.860, Precision 0.952, Faithfulness 0.683, Relevance 0.722. | Map cùng input vào Faithfulness/Relevancy và GEval completeness; không so số tuyệt đối nếu judge/model khác. |
 | Insight rút ra | Chẩn đoán retrieval so với generation rõ ràng. | Mạnh về custom rubric, case assertions và CI/CD quality gate. |
 
 > *Phân tích:*
@@ -345,11 +340,9 @@ giữ nguyên. Kết quả năm traces xác nhận Recall before bằng Recall a
 > *Câu trả lời:*
 
 Reranking không đủ khi tập chunks ban đầu không chứa evidence cần thiết, như A01
-có Recall chỉ 0.259; đổi thứ tự không thể tạo evidence bị thiếu. Khi đó cần sửa
-intent-aware query, query expansion, metadata/effective-date filter, chunk
-boundaries hoặc tăng top-k có kiểm soát. Nếu evidence bị chia vụn thì sửa
-chunking; nếu lấy sai policy version thì dùng metadata filter thay vì chỉ
-lexical reranking.
+có Recall 0.259. Khi đó cần sửa intent-aware query, query expansion,
+metadata/effective-date filter, chunk boundaries hoặc top-k. Đổi thứ tự không
+thể tạo evidence bị thiếu.
 
 ---
 
@@ -363,11 +356,11 @@ Hoàn thành `reflection.md` bằng kết quả thật từ Exercise 3.2.
 
 Hoàn thành kiểm tra cuối trong khoảng 11:50–12:00.
 
-- [ ] Tất cả required tests pass.
-- [ ] `golden_dataset.json` validate thành công.
-- [ ] Exercise 3.1 hoàn thành trong file JSON và bảng kết quả phía trên.
-- [ ] Exercise 3.2 có năm metrics, aggregate report và ba cases thấp nhất.
-- [ ] Exercise 3.3 có rubric 1–5 và bias controls.
-- [ ] `reflection.md` có ba failure analyses và regression strategy.
-- [ ] Đã copy `template.py` thành `solution/solution.py`.
-- [ ] Exercise 3.4 và 3.5 chỉ làm nếu chọn bonus.
+- [x] Tất cả required tests pass.
+- [x] `golden_dataset.json` validate thành công.
+- [x] Exercise 3.1 hoàn thành trong file JSON và bảng kết quả phía trên.
+- [x] Exercise 3.2 có năm metrics, aggregate report và ba cases thấp nhất.
+- [x] Exercise 3.3 có rubric 1–5 và bias controls.
+- [x] `reflection.md` có ba failure analyses và regression strategy.
+- [x] Đã copy `template.py` thành `solution/solution.py`.
+- [x] Exercise 3.4 và 3.5 đã hoàn thành như phần bonus.

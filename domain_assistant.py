@@ -12,6 +12,7 @@ import json
 import math
 import os
 import re
+import sys
 import time
 from collections import Counter
 from collections.abc import Callable, Sequence
@@ -460,7 +461,8 @@ def generate_actual_answers(
             "name": "domain-assistant",
             "model": model,
             "top_k": top_k,
-            "prompt_version": "1.0",
+            "prompt_version": "2.0-en",
+            "response_language": "en",
         },
         "answers": answers,
     }
@@ -493,6 +495,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    # Windows PowerShell may default to a legacy code page that cannot print
+    # Vietnamese progress messages. Keep the documented command
+    # ``python domain_assistant.py`` usable without requiring ``-X utf8``.
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8")
+
     args = parse_args()
     try:
         artifact = generate_actual_answers(

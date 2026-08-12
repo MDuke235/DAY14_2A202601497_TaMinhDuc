@@ -316,3 +316,32 @@ Bonus không thay thế phần điểm bắt buộc:
 - [ ] `reflection.md` có ba 5 Whys analyses và improvement log.
 - [ ] `solution/solution.py` là bản hoàn thiện của `template.py`.
 - [ ] Không commit `.env`, API key hoặc dữ liệu giảng viên cung cấp ngoài repo.
+
+---
+
+## Chạy giao diện demo
+
+Giao diện demo dùng Python standard library nên không cần cài dependency mới.
+Đảm bảo `.env` có API key nếu muốn dùng tab **Live assistant**, sau đó chạy:
+
+```bash
+python demo_app.py
+```
+
+Mở `http://127.0.0.1:8000` nếu trình duyệt không tự mở. Giao diện gồm:
+
+- Benchmark dashboard với 20 cases và answer/context trace.
+- Live RAG assistant dùng corpus Northstar và OpenAI model trong `.env`.
+- Bonus reranking để so Context Recall/Precision trước và sau đổi thứ tự chunks.
+
+Chạy lại báo cáo bonus Exercise 3.5 từ terminal:
+
+```bash
+python bonus_reranking.py --limit 5
+```
+
+Để demo mà không tự mở browser hoặc khi port 8000 đang bận:
+
+```bash
+python demo_app.py --no-browser --port 8765
+```
