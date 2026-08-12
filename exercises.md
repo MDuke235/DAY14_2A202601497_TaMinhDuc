@@ -30,11 +30,11 @@ critical.
 
 | Metric | Acceptable Low Score Scenario | Critical Low Score Scenario | Action Required |
 |---|---|---|---|
-| Faithfulness | | | |
-| Answer Relevance | | | |
-| Context Recall | | | |
-| Context Precision | | | |
-| Completeness | | | |
+| Faithfulness | Câu trả lời ngắn có dùng cách diễn đạt hoặc thuật ngữ tương đương nhưng ít trùng từ với context; cần human review xác nhận nội dung vẫn được hỗ trợ. | Câu trả lời chứa ngày, số tiền, điều kiện hoặc ngoại lệ không có trong tài liệu nguồn, đặc biệt với học phí, học bổng, quyền riêng tư và khiếu nại. | Kiểm tra retrieved context và trace; bổ sung grounding guardrail, yêu cầu nêu rõ khi corpus thiếu thông tin và chặn deploy nếu lỗi có thể gây hại. |
+| Answer Relevance | Câu trả lời đúng chính sách nhưng có thêm một ít hướng dẫn liên quan, ví dụ nhắc văn phòng chịu trách nhiệm. | Câu trả lời không giải quyết ý định chính, trả lời sai loại thủ tục hoặc chuyển sang chủ đề ngoài câu hỏi. | Rà soát intent/routing và prompt; thêm test phân biệt các quy trình dễ nhầm như grade appeal với service complaint. |
+| Context Recall | Câu hỏi chỉ cần một fact đơn giản và chunk lấy được đã chứa đủ fact đó dù không bao phủ toàn bộ cách viết của expected answer. | Retriever bỏ sót deadline, mức phí, điều kiện bắt buộc hoặc ngoại lệ cần thiết để trả lời chính xác. | Cải thiện query, chunking và top-k; thêm metadata/effective-date filtering rồi chạy lại benchmark. |
+| Context Precision | Recall vẫn cao và generator có thể bỏ qua vài chunk nhiễu không gây sai answer. | Evidence đúng bị xếp sau nhiều chunk không liên quan, làm generator dùng nhầm policy hoặc vượt context window. | Thêm reranking, lọc metadata và đo lại Average Precision@K; theo dõi cả Recall để tránh loại mất evidence. |
+| Completeness | Người dùng chỉ hỏi một fact hẹp và answer bỏ qua chi tiết phụ không cần thiết cho hành động tiếp theo. | Answer thiếu điều kiện, deadline, ngoại lệ hoặc bước escalation khiến sinh viên thực hiện sai quy trình. | Bổ sung checklist theo loại intent, few-shot answer đầy đủ và test coverage cho các claim bắt buộc. |
 
 ### Exercise 1.2 — Bias trong LLM-as-a-Judge
 
@@ -48,13 +48,33 @@ Ba bias thường gặp:
 
 > *Câu trả lời:*
 
+Tạo một tập các cặp câu trả lời A/B có chất lượng tương đương và chấm trong ít
+nhất hai conditions: condition 1 đặt A trước B, condition 2 đảo B trước A nhưng
+giữ nguyên question, rubric và tham số judge. Có thể thêm condition 3 đổi nhãn
+A/B thành Response X/Y để loại ảnh hưởng của tên nhãn. Chạy nhiều cặp và nhiều
+lần với thứ tự được randomize; nếu cùng một nội dung nhận điểm cao hơn hoặc được
+chọn thường xuyên hơn khi đứng đầu, chênh lệch có ý nghĩa và lặp lại qua các
+cặp, đó là bằng chứng của position bias.
+
 **Câu 2: Làm thế nào giảm verbosity bias bằng rubric design?**
 
 > *Câu trả lời:*
 
+Rubric phải chấm theo các claim bắt buộc, độ chính xác, evidence, actionability
+và safety/privacy thay vì độ dài. Nêu rõ câu trả lời ngắn nhưng đủ và đúng vẫn
+có thể đạt mức 5; nội dung lặp lại, lan man hoặc thêm claim không được hỗ trợ
+không được cộng điểm và có thể bị trừ điểm. Judge cũng nên nhận answer đã ẩn
+thông tin về độ dài/nguồn model khi có thể.
+
 **Câu 3: Tại sao cần calibrate LLM judge với human labels?**
 
 > *Câu trả lời:*
+
+Human labels tạo mốc chuẩn để biết judge có hiểu rubric giống người đánh giá
+hay không, đồng thời phát hiện systematic bias như quá dễ, quá nghiêm hoặc ưu
+tiên văn phong giống chính model judge. Việc calibration trên một tập đại diện,
+đặc biệt gồm deadline, ngoại lệ và privacy failures, giúp chọn threshold phù
+hợp và đo inter-rater agreement trước khi dùng judge làm quality gate.
 
 ### Exercise 1.3 — Evaluation trong CI/CD
 
@@ -62,13 +82,22 @@ Ba bias thường gặp:
 
 | Metric | Threshold | Lý do |
 |---|---:|---|
-| Faithfulness | | |
-| Answer Relevance | | |
-| Completeness | | |
+| Faithfulness | 0.80 | Student Services có nhiều thông tin nhạy cảm như deadline, phí và eligibility; claim không grounded có thể khiến sinh viên hành động sai. Mọi privacy/safety hallucination phải block dù average vẫn đạt ngưỡng. |
+| Answer Relevance | 0.75 | Answer phải giải quyết đúng intent, nhưng word-overlap có thể đánh giá thấp paraphrase hợp lệ nên ngưỡng thấp hơn Faithfulness và cần xem failure theo case. |
+| Completeness | 0.80 | Việc bỏ sót điều kiện hoặc ngoại lệ quan trọng có thể làm hướng dẫn đúng một phần nhưng không sử dụng được; các critical-field omissions phải block riêng. |
 
 **Câu 2: Khi nào dùng offline evaluation, online evaluation và human review?**
 
 > *Câu trả lời:*
+
+Dùng offline evaluation cho mọi thay đổi code, prompt, retriever, model hoặc
+corpus trước merge/release; chạy golden dataset cố định để so với baseline và
+phát hiện regression. Dùng online evaluation sau deploy để theo dõi traffic
+thật, drift, latency, cost, feedback và các intent mới nhưng phải bảo vệ dữ liệu
+cá nhân. Dùng human review để hiệu chuẩn LLM judge, xử lý case high-stakes hoặc
+mơ hồ, xem xét privacy/safety failures và audit định kỳ các mẫu online. Ba hình
+thức bổ trợ nhau: offline là quality gate, online phát hiện vấn đề thực tế, còn
+human review cung cấp chuẩn và quyết định cho trường hợp rủi ro cao.
 
 ---
 
